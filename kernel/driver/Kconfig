@@ -1,0 +1,58 @@
+menuconfig HANBANG_DEVICES
+	bool "Build IPNC Device Drivers"
+	default y
+
+if HANBANG_DEVICES
+
+config RTC_DRV_HISI3518
+	bool "Hisi3518 RTC Driver"
+	default y
+	---help---
+	  If you say yes here you get support for RTC function in
+	  Hisi3518 chips.
+
+	  This driver can also be built as a module. If so, the module
+	  will be called rtc-hisi3518.
+
+config GPIO_HISI
+	bool "Hisi3518 series General-purpose I/O Uint support"
+	default y
+	---help---
+	  Say yes here to support the General-purpose I/O Uint
+
+config W1_DS28E10
+	bool "DS28E10 1-Wire® SHA-1 Authenticator"
+	depends on GPIO_HISI
+	default y
+	---help---
+	  Support for 1-wire SHA-1 authenticator DS28E10.
+
+	  This driver can also be built as a module. If so, the module
+	  will be called ds28e10.
+
+	  If not sure, select "y"
+
+config I2C_HISI3518
+	bool "Hisi3518 I2C driver"
+	default y
+	---help---
+	  Support for Hisi3518 I2C controller driver.
+
+	  This driver can also be built as a module.  If so, the module
+	  will be called i2c-hi3518.
+
+config EEPROM_24LCX
+	bool "24lc16 & 24lc32 EEPROM Driver"
+	depends on I2C_HISI3518
+	default y
+	---help---
+	  Enable this driver to get read/write support to 24cl16/32 EEPROMs.
+
+	  If you use this with an SMBus adapter instead of an I2C adapter,
+	  full functionality is not available.  Only smaller devices are
+	  supported (24c16 and below, max 4 kByte).
+
+	  This driver can also be built as a module.  If so, the module
+	  will be called 24lcx.
+
+endif	# HANBANG_DEVICES

@@ -1,0 +1,75 @@
+/*
+ * Automatic software update for Firmware
+ * Make sure the flashing addresses ('load' prop) is correct for your board!
+ */
+
+/dts-v1/;
+
+/ {
+	description = "IPNC auto-tftp firmware";
+	#address-cells = <1>;
+
+	images {
+		update@1 {
+			description = "u-boot";
+			data = /incbin/("./images/uboot.bin");
+			type = "standalone";
+			compression = "none";
+			arch = "arm";
+			load = <0x00000000>;
+			entry = <0x00100000>;
+			hash@1 {
+				algo = "md5";
+			};
+		};
+		update@2 {
+			description = "kernel";
+			data = /incbin/("./images/uImage");
+			type = "kernel";
+			compression = "none";
+			arch = "arm";
+			os = "linux";
+			load = <0x00100000>;
+			entry = <0x00200000>;
+			hash@1 {
+				algo = "md5";
+			};
+		};
+		update@3 {
+			description = "rootfs";
+			data = /incbin/("./images/rootfs.bin");
+			type = "standalone";
+			compression = "none";
+			arch = "arm";
+			load = <0x00400000>;
+			entry = <0x00400000>;
+			hash@1 {
+				algo = "md5";
+			};
+		};
+		update@4 {
+			description = "logfs";
+			data = /incbin/("./images/logfs.jffs2");
+			type = "standalone";
+			compression = "none";
+			arch = "arm";
+			load = <0x00300000>;
+			entry = <0x00100000>;
+			hash@1 {
+				algo = "md5";
+			};
+		};
+		update@5 {
+			description = "appfs";
+			data = /incbin/("./images/appfs.cramfs");
+			type = "standalone";
+			compression = "none";
+			arch = "arm";
+			load = <0x00800000>;
+			entry = <0x00800000>;
+			hash@1 {
+				algo = "md5";
+			};
+		};
+	};
+};

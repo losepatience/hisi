@@ -1,0 +1,40 @@
+menuconfig IPNC_MKFS
+	bool "Build IPNC File System"
+	default y
+	---help---
+	  Build IPNC File System.
+
+if IPNC_MKFS
+
+choice
+	prompt "Linux Root File System"
+	default ROOTFS_CRAMFS
+	---help---
+	  Select rootfs.
+
+config ROOTFS_CRAMFS
+	bool "Cramfs"
+config ROOTFS_JFFS2
+	bool "Jffs2"
+
+endchoice
+
+choice
+	prompt "Select Erase Size of JFFS2"
+        depends on ROOTFS_JFFS2
+	default JFFS2_64K
+	---help---
+	  Select erase block size. If you use a erase block size different
+	  than the erase block size of the target MTD device, JFFS2 may not
+	  perform optimally.
+
+config JFFS2_64KiB
+	bool "64KiB"
+config JFFS2_128KiB
+	bool "128KiB"
+config JFFS2_256KiB
+	bool "256KiB"
+
+endchoice
+
+endif	# HANBANG_DEVICES

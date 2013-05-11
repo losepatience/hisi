@@ -1,0 +1,26 @@
+mainmenu "IPNC Build Configuration"
+
+choice
+	prompt "MACH"
+	default MACH_HI3518C
+	---help---
+	  Select the target soc.
+
+config MACH_HI3518A
+	bool "hi3518a"
+
+config MACH_HI3518C
+	bool "hi3518c"
+
+endchoice
+
+
+config CROSS_COMPILER_PREFIX
+	string "Cross Compiler Prefix"
+	default "arm-hisiv100nptl-linux-"
+	---help---
+	  Select the cross-compiler prefix to compile u-boot and kernel.
+
+source kernel/driver/Kconfig
+source rootfs/Kconfig
+
